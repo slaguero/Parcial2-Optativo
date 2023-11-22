@@ -2,16 +2,16 @@ package com.mycompany.Infraestructure.Models;
 import java.util.Date;
 
 public class PersonasModels {
-    public int Id;
-    public int IdCiudad;
-    public String Nombre;
-    public String Apellido;
-    public String TipoDocumento;
-    public String NroDocumento;
-    public String Direccion;
-    public String Email;
-    public String Celular;
-    public String Estado;
+    private int Id;
+    private int IdCiudad;
+    private String Nombre;
+    private String Apellido;
+    private String TipoDocumento;
+    private String NroDocumento;
+    private String Direccion;
+    private String Email;
+    private String Celular;
+    private String Estado;
 
     public int getId() {
         return Id;

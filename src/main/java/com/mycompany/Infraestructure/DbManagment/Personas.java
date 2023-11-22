@@ -23,19 +23,19 @@ public class Personas {
 
         try {
             connection.setQuerySQL(connection.connectionDB().createStatement());
-            boolean execute = connection.getQuerySQL().execute("INSERT INTO persona (idpersona, nombre, apellido, tipodocumento, nrodocumento, direccion, email, celular, estado)" +
+            boolean execute = connection.getQuerySQL().execute("INSERT INTO persona (id, nombre, apellido, tipodocumento, nrodocumento, direccion, email, celular, estado)" +
                     "values('" +
-                    personas.IdCiudad + "', '" +
-                    personas.Nombre + "', '" +
-                    personas.Apellido + "', '" +
-                    personas.TipoDocumento + "', '" +
-                    personas.NroDocumento + "', '" +
-                    personas.Direccion + "', '" +
-                    personas.Email + "', '" +
-                    personas.Celular + "', '" +
-                    personas.Estado + "')");
+                    personas.getId() + "', '" +
+                    personas.getNombre() + "', '" +
+                    personas.getApellido() + "', '" +
+                    personas.getTipoDocumento() + "', '" +
+                    personas.getNroDocumento() + "', '" +
+                    personas.getDireccion() + "', '" +
+                    personas.getEmail() + "', '" +
+                    personas.getCelular() + "', '" +
+                    personas.getEstado() + "')");
             connection.connectionDB().close();
-            return "La persona con nombre: " + personas.Nombre+", y apellido: "+personas.Apellido + " fue registrada correctamente!!!";
+            return "La persona con nombre: " + personas.getNombre()+", y apellido: "+personas.getApellido() + " fue registrada correctamente!!!";
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -45,17 +45,17 @@ public class Personas {
 
         try {
             connection.setQuerySQL(connection.connectionDB().createStatement());
-            boolean execute = connection.getQuerySQL().execute("UPDATE persona SET " +
-                    "nombre = '" + personas.Nombre + "'," +
-                    "apellido = '" + personas.Apellido + "'," +
-                    "tipodocumento = '" + personas.TipoDocumento + "'," +
-                    "nrodocumento= '" + personas.NroDocumento + "'," +
-                    "direccion = '" + personas.Direccion + "'," +
-                    "email = '" + personas.Email + "'," +
-                    "celular = '" + personas.Celular + "'," +
-                    "estado = '" + personas.Estado + "' " + " Where id = " + personas.Id);
+            String execute = connection.getQuerySQL().execute("UPDATE persona SET " +
+                    "nombre = '" + personas.getNombre()) + "'," +
+                    "apellido = '" + personas.getApellido() + "'," +
+                    "tipodocumento = '" + personas.getTipoDocumento() + "'," +
+                    "nrodocumento= '" + personas.getNroDocumento() + "'," +
+                    "direccion = '" + personas.getDireccion() + "'," +
+                    "email = '" + personas.getEmail() + "'," +
+                    "celular = '" + personas.getCelular() + "'," +
+                    "estado = '" + personas.getEstado() + "' " + " Where id = " + personas.getId();
             connection.connectionDB().close();
-            return "Los datos de la persona " + personas.Nombre +" "+ personas.Apellido + " fueron modificados correctamente!!!";
+            return "Los datos de la persona " + personas.getNombre() +" "+ personas.getApellido() + " fueron modificados correctamente!!!";
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -65,14 +65,13 @@ public class Personas {
         PersonasModels personas = new PersonasModels();
         try {
             connection.setQuerySQL(connection.connectionDB().createStatement());
-            connection.setResultadoQuery(connection.getQuerySQL().executeQuery("Select * from persona where id = " + personas.Id));
+            connection.setResultadoQuery(connection.getQuerySQL().executeQuery("Select * from persona where id = " + id));
             if(connection.getResultadoQuery().next()){
-                personas.Nombre = connection.getResultadoQuery().getString("nombre");
-                personas.Apellido = connection.getResultadoQuery().getString("apellido");
-
-
+                personas.setNombre(connection.getResultadoQuery().getString("nombre"));
+                personas.setApellido(connection.getResultadoQuery().getString("apellido"));
                 return personas;
             }
+            
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -84,9 +83,8 @@ public class Personas {
             connection.setQuerySQL(connection.connectionDB().createStatement());
             connection.setResultadoQuery(connection.getQuerySQL().executeQuery("Select * from persona where nrodocumento = " + documento));
             if(connection.getResultadoQuery().next()){
-                personas.Nombre = connection.getResultadoQuery().getString("nombre");
-                personas.Apellido = connection.getResultadoQuery().getString("apellido");
-
+                personas.setNombre(connection.getResultadoQuery().getString("nombre"));
+                personas.setApellido(connection.getResultadoQuery().getString("apellido"));
 
                 return personas;
             }

@@ -21,12 +21,13 @@ public class Clientes {
 
         try {
             connection.setQuerySQL(connection.connectionDB().createStatement());
-            boolean execute = connection.getQuerySQL().execute("INSERT INTO cliente (idpersona, fechaingreso, calificacion, estado)" +
+            boolean execute = connection.getQuerySQL().execute("INSERT INTO cliente (id,idpersona, fechaingreso, calificacion, estado)" +
                     "values('" +
-                    clientes.IdPersona+ "', '" +
-                    clientes.FechaIngreso + "', '" +
-                    clientes.Calificacion + "', '" +
-                    clientes.Estado + "')");
+                    clientes.getIdCliente()+ "', '" +
+                    clientes.getIdPersona()+ "', '" +
+                    clientes.getFechaIngreso() + "', '" +
+                    clientes.getCalificacion() + "', '" +
+                    clientes.getEstado() + "')");
             connection.connectionDB().close();
             return "El cliente fue registrado correctamente!!!";
         } catch (SQLException e) {
@@ -39,10 +40,10 @@ public class Clientes {
         try {
             connection.setQuerySQL(connection.connectionDB().createStatement());
             boolean execute = connection.getQuerySQL().execute("UPDATE cliente SET " +
-                    "idpersona = '" + clientes.IdPersona + "'," +
-                    "fechaingreso= '" + clientes.FechaIngreso + "'," +
-                    "calificacion = '" + clientes.Calificacion + "'," +
-                    "estado= '" + clientes.Estado + "' " + " Where id = " + clientes.IdCliente);
+                    "idpersona = '" + clientes.getIdPersona() + "'," +
+                    "fechaingreso= '" + clientes.getFechaIngreso() + "'," +
+                    "calificacion = '" + clientes.getCalificacion() + "'," +
+                    "estado= '" + clientes.getEstado() + "' " + " Where id = " + clientes.getIdCliente());
             connection.connectionDB().close();
             return "Los datos del cliente fueron modificados correctamente!!!";
         } catch (SQLException e) {

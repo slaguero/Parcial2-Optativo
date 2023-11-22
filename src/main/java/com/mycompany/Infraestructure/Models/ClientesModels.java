@@ -11,11 +11,19 @@ import java.util.Date;
  */
 public class ClientesModels {
 
-    public int IdCliente;
-    public int IdPersona;
-    public Date FechaIngreso;
-    public String Calificacion;
-    public String Estado;
+    private int IdCliente;
+    private int IdPersona;
+    private Date FechaIngreso;
+    private String Calificacion;
+    private String Estado;
+    
+    public int getIdCliente() {
+        return IdCliente;
+    }
+
+    public void setIdIdCliente(int IdCliente) {
+        this.IdCliente = IdCliente;
+    }
 
     public int getIdPersona() {
         return IdPersona;

@@ -20,7 +20,7 @@ public class CuentasPresentation extends javax.swing.JFrame {
     public CuentasPresentation() {
         initComponents();
         this.setLocationRelativeTo(null);
-        cuentaService = new CuentasService("postgres", "1234", "localhost", "5432", "OptativoII");
+        cuentaService = new CuentasService("postgres", "1234", "localhost", "5432", "postgres");
     }
     private void ConsultarCuenta(String id) {
         cargarDatos(cuentaService.consultarCuenta(Integer.parseInt(id)));
@@ -29,17 +29,18 @@ public class CuentasPresentation extends javax.swing.JFrame {
     
     private void nuevaCuenta() {
         CuentasModels model = new CuentasModels();
-        txtCCliente.setText(String.valueOf(model.IdCliente));
-        date.setDate(model.FechaAlta);
-        cbEstadoCuenta.setSelectedItem(model.TipoCuenta);
-        txtSaldo.setText(String.valueOf(model.Saldo));
-        txtNroCuentaBanc.setText(model.NroContrato);
-        txtContac.setText(String.valueOf(model.Contacto));
-        txtCostoMan.setText(String.valueOf(model.CostoMantenimiento));
-        txtNroCuenta.setText(model.NroCuenta);
-        txtPromedioAcred.setText(model.PromedioAcreditacion);
-        cbMoneda.setSelectedItem(model.Moneda);
-        cbestadoCuenta.setSelectedItem(model.Estado);
+        model.setId(Integer.parseInt(txtIdCuenta.getText()));
+        model.setIdCliente(Integer.parseInt(txtCCliente.getText()));
+        model.setFechaAlta(date.getDate());
+        model.setTipoCuenta(cbEstadoCuenta.getSelectedItem().toString());
+        model.setSaldo(Float.parseFloat(txtSaldo.getText()));
+        model.setNroContrato(txtNroCuentaBanc.getText());
+        model.setContacto(txtContac.getText());
+        model.setCostoMantenimiento(Float.parseFloat(txtCostoMan.getText()));
+        model.setNroCuenta(txtNroCuenta.getText());
+        model.setPromedioAcreditacion(txtPromedioAcred.getText());
+        model.setMoneda(cbMoneda.getSelectedItem().toString());
+        model.setEstado(cbestadoCuenta.getSelectedItem().toString());
         
         String result = cuentaService.registrarCuenta(model);
         JOptionPane.showMessageDialog(this, result);
@@ -48,22 +49,30 @@ public class CuentasPresentation extends javax.swing.JFrame {
     }
     
     private void cargarDatos(CuentasModels model){
-        txtCCliente.setText(String.valueOf(model.IdCliente));
-        date.setDate(model.FechaAlta);
-        cbEstadoCuenta.setSelectedItem(model.TipoCuenta);
-        txtSaldo.setText(String.valueOf(model.Saldo));
-        txtNroCuentaBanc.setText(model.NroContrato);
-        txtContac.setText(model.Contacto);
-        txtCostoMan.setText(String.valueOf(model.CostoMantenimiento));
-        txtNroCuenta.setText(model.NroCuenta);
-        txtPromedioAcred.setText(model.PromedioAcreditacion);
-        cbMoneda.setSelectedItem(model.Moneda);
-        cbestadoCuenta.setSelectedItem(model.Estado);
+        if (model!=null){
+            txtIdCuenta.setText(String.valueOf(model.getId()));
+            txtCCliente.setText(String.valueOf(model.getIdCliente()));
+            date.setDate(model.getFechaAlta());
+            cbEstadoCuenta.setSelectedItem(model.getTipoCuenta());
+            txtSaldo.setText(String.valueOf(model.getSaldo()));
+            txtNroCuentaBanc.setText(model.getNroContrato());
+            txtContac.setText(String.valueOf(model.getContacto()));
+            txtCostoMan.setText(String.valueOf(model.getCostoMantenimiento()));
+            txtNroCuenta.setText(model.getNroCuenta());
+            txtPromedioAcred.setText(model.getPromedioAcreditacion());
+            cbMoneda.setSelectedItem(model.getMoneda());
+            cbestadoCuenta.setSelectedItem(model.getEstado());
+        }else{
+            limpiarDatos();
+            JOptionPane.showMessageDialog(this, "No se encontró Cuenta con el id ingresado");
+        }
     }
     
     private void limpiarDatos() {
+        txtIdCuenta.setText("");
         txtCCliente.setText("");
-        cbEstadoCuenta.setSelectedItem("");
+        cbTipoDocumento1.setSelectedItem("");
+        date.setDate(null);
         txtSaldo.setText("");
         txtNroCuentaBanc.setText("");
         txtContac.setText("");
@@ -101,7 +110,6 @@ public class CuentasPresentation extends javax.swing.JFrame {
         jLabel7 = new javax.swing.JLabel();
         txtPromedioAcred = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
-        Cancelar = new javax.swing.JButton();
         etiquetaPersona = new javax.swing.JLabel();
         Cancelar1 = new javax.swing.JButton();
         txtIdCuenta = new javax.swing.JTextField();
@@ -117,23 +125,31 @@ public class CuentasPresentation extends javax.swing.JFrame {
         cbMoneda = new javax.swing.JComboBox<>();
         cbEstadoCuenta = new javax.swing.JComboBox<>();
         date = new com.toedter.calendar.JDateChooser();
+        btnNew = new javax.swing.JButton();
+        Cancelar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setText("Id Cliente");
 
+        txtCCliente.setEnabled(false);
+
         jLabel9.setText("Saldo");
 
         jLabel2.setText("Nro Cuenta");
 
+        txtNroCuenta.setEnabled(false);
+
         jLabel3.setText("Fecha Alta");
 
         cbestadoCuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Inactivo" }));
+        cbestadoCuenta.setEnabled(false);
 
         jLabel4.setText("Tipo de Cuenta");
 
         txtSaldo.setColumns(20);
         txtSaldo.setRows(5);
+        txtSaldo.setEnabled(false);
         jScrollPane2.setViewportView(txtSaldo);
 
         jLabel5.setText("Estado cuenta");
@@ -165,22 +181,17 @@ public class CuentasPresentation extends javax.swing.JFrame {
                 .addGap(16, 16, 16))
         );
 
+        txtNroCuentaBanc.setEnabled(false);
+
         jLabel7.setText("Contacto");
+
+        txtPromedioAcred.setEnabled(false);
 
         btnBuscar.setBackground(new java.awt.Color(204, 204, 255));
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
-            }
-        });
-
-        Cancelar.setBackground(new java.awt.Color(204, 204, 0));
-        Cancelar.setForeground(new java.awt.Color(255, 255, 255));
-        Cancelar.setText("Cancelar");
-        Cancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CancelarActionPerformed(evt);
             }
         });
 
@@ -204,10 +215,11 @@ public class CuentasPresentation extends javax.swing.JFrame {
         jLabel8.setText("Costo Mantenimiento");
 
         cbTipoDocumento1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Debito", "Credito" }));
+        cbTipoDocumento1.setEnabled(false);
 
         botonAceptar.setBackground(new java.awt.Color(0, 102, 0));
         botonAceptar.setForeground(new java.awt.Color(255, 255, 255));
-        botonAceptar.setText("Aceptar");
+        botonAceptar.setText("Guardar");
         botonAceptar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 botonAceptarActionPerformed(evt);
@@ -220,7 +232,12 @@ public class CuentasPresentation extends javax.swing.JFrame {
 
         jLabel12.setText("Estado");
 
+        txtContac.setEnabled(false);
+
+        txtCostoMan.setEnabled(false);
+
         cbMoneda.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "GS", "USD" }));
+        cbMoneda.setEnabled(false);
         cbMoneda.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbMonedaActionPerformed(evt);
@@ -228,6 +245,26 @@ public class CuentasPresentation extends javax.swing.JFrame {
         });
 
         cbEstadoCuenta.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Activo", "Bloqueado", "Inactivo" }));
+        cbEstadoCuenta.setEnabled(false);
+
+        date.setEnabled(false);
+
+        btnNew.setBackground(new java.awt.Color(204, 204, 255));
+        btnNew.setText("Nuevo");
+        btnNew.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNewActionPerformed(evt);
+            }
+        });
+
+        Cancelar.setBackground(new java.awt.Color(204, 204, 0));
+        Cancelar.setForeground(new java.awt.Color(255, 255, 255));
+        Cancelar.setText("Limpiar");
+        Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -238,7 +275,7 @@ public class CuentasPresentation extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel8)
-                        .addGap(48, 48, 48)
+                        .addGap(37, 37, 37)
                         .addComponent(txtCostoMan))
                     .addComponent(jSeparator1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -256,11 +293,13 @@ public class CuentasPresentation extends javax.swing.JFrame {
                             .addComponent(txtCCliente)
                             .addComponent(txtNroCuenta, javax.swing.GroupLayout.Alignment.LEADING)))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addGap(0, 159, Short.MAX_VALUE)
+                        .addComponent(btnNew)
+                        .addGap(26, 26, 26)
                         .addComponent(botonAceptar)
-                        .addGap(9, 9, 9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(Cancelar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(11, 11, 11)
                         .addComponent(Cancelar1))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,21 +312,17 @@ public class CuentasPresentation extends javax.swing.JFrame {
                             .addComponent(jLabel10)
                             .addComponent(jLabel11)
                             .addComponent(jLabel12))
+                        .addGap(28, 28, 28)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(42, 42, 42)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbestadoCuenta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 325, Short.MAX_VALUE)
-                                    .addComponent(cbTipoDocumento1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(txtContac)
-                                    .addComponent(txtNroCuentaBanc)
-                                    .addComponent(txtPromedioAcred)
-                                    .addComponent(cbMoneda, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbEstadoCuenta, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(37, 37, 37)
-                                .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                            .addComponent(txtContac, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(txtNroCuentaBanc, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cbEstadoCuenta, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbTipoDocumento1, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbestadoCuenta, javax.swing.GroupLayout.Alignment.TRAILING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbMoneda, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtPromedioAcred))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -318,19 +353,18 @@ public class CuentasPresentation extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(cbTipoDocumento1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(9, 9, 9)
-                        .addComponent(jLabel5)
-                        .addGap(16, 16, 16))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbEstadoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
+                .addGap(7, 7, 7)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel5)
+                        .addGap(23, 23, 23)
+                        .addComponent(jLabel9)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cbEstadoCuenta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 26, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
                     .addComponent(txtNroCuentaBanc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -357,8 +391,9 @@ public class CuentasPresentation extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonAceptar)
-                    .addComponent(Cancelar)
-                    .addComponent(Cancelar1))
+                    .addComponent(Cancelar1)
+                    .addComponent(btnNew)
+                    .addComponent(Cancelar))
                 .addContainerGap())
         );
 
@@ -368,10 +403,6 @@ public class CuentasPresentation extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         ConsultarCuenta(txtIdCuenta.getText());
     }//GEN-LAST:event_btnBuscarActionPerformed
-
-    private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CancelarActionPerformed
 
     private void Cancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancelar1ActionPerformed
        this.setVisible (false);
@@ -383,12 +414,33 @@ public class CuentasPresentation extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdCuentaKeyPressed
 
     private void botonAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonAceptarActionPerformed
-        JOptionPane.showMessageDialog(null, "Presionaste el boton Aceptar");
+        nuevaCuenta();
+// JOptionPane.showMessageDialog(null, "Registrado");
     }//GEN-LAST:event_botonAceptarActionPerformed
 
     private void cbMonedaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbMonedaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbMonedaActionPerformed
+
+    private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
+        limpiarDatos();
+    }//GEN-LAST:event_CancelarActionPerformed
+
+    private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+        limpiarDatos();
+        txtCCliente.setEnabled(true);
+        date.setEnabled(true);
+        cbEstadoCuenta.setEnabled(true);
+        cbTipoDocumento1.setEnabled(true);
+        txtSaldo.setEnabled(true);
+        txtNroCuentaBanc.setEnabled(true);
+        txtContac.setEnabled(true);
+        txtCostoMan.setEnabled(true);
+        txtNroCuenta.setEnabled(true);
+        txtPromedioAcred.setEnabled(true);
+        cbMoneda.setEnabled(true);
+        cbestadoCuenta.setEnabled(true);
+    }//GEN-LAST:event_btnNewActionPerformed
 
     /**
      * @param args the command line arguments
@@ -431,6 +483,7 @@ public class CuentasPresentation extends javax.swing.JFrame {
     private javax.swing.JButton Cancelar1;
     private javax.swing.JButton botonAceptar;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnNew;
     private javax.swing.JComboBox<String> cbEstadoCuenta;
     private javax.swing.JComboBox<String> cbMoneda;
     private javax.swing.JComboBox<String> cbTipoDocumento1;

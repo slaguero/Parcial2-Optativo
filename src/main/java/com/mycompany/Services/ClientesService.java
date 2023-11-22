@@ -37,14 +37,10 @@ public class ClientesService {
 
     private boolean validarDatos(ClientesModels Clientes) {
         try {
-        if(Clientes.Calificacion.isEmpty()){
-            if (Clientes.Calificacion.length() < 3) {
-                throw new Exception("El nombre no tiene la longitud necesaria");
-            }
-        }
-        else {
-            throw new Exception("El nombre no debe estar vacío");
-            }
+        //if(Clientes.getCalificacion().isEmpty()){
+            //throw new Exception("Calificacion no debe estar vacío");
+       // }
+       
 
     } catch (Exception e) {
         throw new RuntimeException(e);

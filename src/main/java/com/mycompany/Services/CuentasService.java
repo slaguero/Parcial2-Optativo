@@ -37,9 +37,9 @@ public class CuentasService {
 
     private boolean validarDatos(CuentasModels cuentas) {
         try {
-            if(cuentas.NroCuenta.trim().isEmpty())
+            if(cuentas.getNroCuenta().trim().isEmpty())
                 throw new Exception("El numero de cuenta no debe estar vacío");
-            else if (cuentas.NroCuenta.trim().length() < 3) {
+            else if (cuentas.getNroCuenta().trim().length() < 3) {
                 throw new Exception("El numero de cuenta no tiene la longitud necesaria");
             }
 

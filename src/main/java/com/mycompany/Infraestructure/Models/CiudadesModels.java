@@ -9,11 +9,18 @@ package com.mycompany.Infraestructure.Models;
  * @author solua
  */
 public class CiudadesModels {
-    public int Id;
-    public String nombreCiudad;
-    public String Departamento;
-    public String Postal;
+    private int Id;
+    private String nombreCiudad;
+    private String Departamento;
+    private String Postal;
     
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int Id) {
+        this.Id = Id;
+    }
     public String getCiudad() {
         return nombreCiudad;
     }

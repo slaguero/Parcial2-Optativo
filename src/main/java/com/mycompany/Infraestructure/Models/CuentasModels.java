@@ -10,19 +10,19 @@ import java.util.Date;
  * @author solua
  */
 public class CuentasModels {
-    public int Id;
-    public int IdCliente;
-    public String NroCuenta;
-    public Date FechaAlta;
-    public String TipoCuenta;
-    public String Estado;
-    public float Saldo;
-    public String NroContrato;
-    public float CostoMantenimiento;
-    public String PromedioAcreditacion;
-    public String Moneda;
-    public String EstadoCuenta;
-    public String Contacto;
+    private int Id;
+    private int IdCliente;
+    private String NroCuenta;
+    private Date FechaAlta;
+    private String TipoCuenta;
+    private String Estado;
+    private float Saldo;
+    private String NroContrato;
+    private float CostoMantenimiento;
+    private String PromedioAcreditacion;
+    private String Moneda;
+    private String EstadoCuenta;
+    private String Contacto;
 
 
     public int getId() {

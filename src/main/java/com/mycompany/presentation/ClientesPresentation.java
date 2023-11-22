@@ -20,7 +20,7 @@ public class ClientesPresentation extends javax.swing.JFrame {
     public ClientesPresentation() {
         initComponents();
          this.setLocationRelativeTo(null);
-        clientesService = new ClientesService("postgres", "1234", "localhost", "5432", "OptativoII");
+        clientesService = new ClientesService("postgres", "1234", "localhost", "5432", "postgres");
 
     }
     private void ConsultarCliente(String id) {
@@ -30,11 +30,12 @@ public class ClientesPresentation extends javax.swing.JFrame {
     
     private void nuevoCliente() {
         ClientesModels model = new ClientesModels();
-        txtCIDPersona.setText(String.valueOf(model.IdPersona));
-        date.setDate(model.FechaIngreso);
-        cbcalificacion1.setSelectedItem(model.Calificacion);
-        cbestado.setSelectedItem(model.Estado);
-        
+        model.setIdIdCliente(Integer.parseInt(txtIdCliente.getText()));
+        model.setIdPersona(Integer.parseInt(txtCIDPersona.getText()));
+        model.setFechaIngreso(date.getDate());
+        model.setCalificacion(cbcalificacion1.getSelectedItem().toString());
+        model.setEstado(cbestado.getSelectedItem().toString());
+
         String result = clientesService.registrarCliente(model);
         JOptionPane.showMessageDialog(this, result);
 
@@ -42,13 +43,19 @@ public class ClientesPresentation extends javax.swing.JFrame {
     }
     
     private void cargarDatos(ClientesModels model){
-        txtCIDPersona.setText(String.valueOf(model.IdPersona));
-        date.setDate(model.FechaIngreso);
-        cbcalificacion1.setSelectedItem(model.Calificacion);
-        cbestado.setSelectedItem(model.Estado);
+        if (model!=null){
+            txtCIDPersona.setText(String.valueOf(model.getIdPersona()));
+            date.setDate(model.getFechaIngreso());
+            cbcalificacion1.setSelectedItem(model.getCalificacion());
+            cbestado.setSelectedItem(model.getEstado());
+         }else{
+           limpiarDatos();
+            JOptionPane.showMessageDialog(this, "No se encontró Persona con el id ingresado");
+        }
     }
     
     private void limpiarDatos() {
+        txtIdCliente.setText("");
         txtCIDPersona.setText("");
         date.setDate(null);
         cbcalificacion1.setSelectedIndex(0);
@@ -73,7 +80,6 @@ public class ClientesPresentation extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         tituloPrincipal2 = new javax.swing.JLabel();
         btnModelBuscarClientes = new javax.swing.JButton();
-        Cancelar = new javax.swing.JButton();
         etiquetaPersona = new javax.swing.JLabel();
         Cancelar1 = new javax.swing.JButton();
         txtIdCliente = new javax.swing.JTextField();
@@ -83,6 +89,7 @@ public class ClientesPresentation extends javax.swing.JFrame {
         botonGuardar = new javax.swing.JButton();
         botonNuevo = new javax.swing.JButton();
         date = new com.toedter.calendar.JDateChooser();
+        Cancelar = new javax.swing.JButton();
 
         tituloPrincipal.setFont(new java.awt.Font("Viner Hand ITC", 1, 24)); // NOI18N
         tituloPrincipal.setForeground(new java.awt.Color(102, 0, 102));
@@ -135,15 +142,6 @@ public class ClientesPresentation extends javax.swing.JFrame {
             }
         });
 
-        Cancelar.setBackground(new java.awt.Color(204, 204, 0));
-        Cancelar.setForeground(new java.awt.Color(255, 255, 255));
-        Cancelar.setText("Cancelar");
-        Cancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CancelarActionPerformed(evt);
-            }
-        });
-
         etiquetaPersona.setText("Id Cliente");
 
         Cancelar1.setBackground(new java.awt.Color(204, 51, 0));
@@ -190,6 +188,15 @@ public class ClientesPresentation extends javax.swing.JFrame {
             }
         });
 
+        Cancelar.setBackground(new java.awt.Color(204, 204, 0));
+        Cancelar.setForeground(new java.awt.Color(255, 255, 255));
+        Cancelar.setText("Limpiar");
+        Cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CancelarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -213,18 +220,18 @@ public class ClientesPresentation extends javax.swing.JFrame {
                                 .addComponent(botonNuevo)
                                 .addGap(18, 18, 18)
                                 .addComponent(botonGuardar)
-                                .addGap(9, 9, 9)
+                                .addGap(11, 11, 11)
                                 .addComponent(Cancelar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(Cancelar1))
                             .addComponent(cbestado, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(cbcalificacion1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtCIDPersona)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(txtIdCliente)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(btnModelBuscarClientes))
-                            .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(date, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(cbcalificacion1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -258,9 +265,9 @@ public class ClientesPresentation extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(botonGuardar)
-                    .addComponent(Cancelar)
                     .addComponent(Cancelar1)
-                    .addComponent(botonNuevo))
+                    .addComponent(botonNuevo)
+                    .addComponent(Cancelar))
                 .addContainerGap())
         );
 
@@ -270,10 +277,6 @@ public class ClientesPresentation extends javax.swing.JFrame {
     private void btnModelBuscarClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModelBuscarClientesActionPerformed
          ConsultarCliente( txtIdCliente.getText().trim());
     }//GEN-LAST:event_btnModelBuscarClientesActionPerformed
-
-    private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CancelarActionPerformed
 
     private void Cancelar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Cancelar1ActionPerformed
         this.setVisible (false);
@@ -301,11 +304,16 @@ public class ClientesPresentation extends javax.swing.JFrame {
     }//GEN-LAST:event_txtIdClienteActionPerformed
 
     private void botonNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevoActionPerformed
+        limpiarDatos();
         txtCIDPersona.setEnabled(true); 
         date.setEnabled(true); 
         cbcalificacion1.setEnabled(true); 
         cbestado.setEnabled(true); 
     }//GEN-LAST:event_botonNuevoActionPerformed
+
+    private void CancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelarActionPerformed
+       limpiarDatos();
+    }//GEN-LAST:event_CancelarActionPerformed
 
     /**
      * @param args the command line arguments

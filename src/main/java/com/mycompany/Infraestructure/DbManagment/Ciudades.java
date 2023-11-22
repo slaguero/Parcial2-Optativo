@@ -23,13 +23,14 @@ public class Ciudades {
 
         try {
             connection.setQuerySQL(connection.connectionDB().createStatement());
-            boolean execute = connection.getQuerySQL().execute("INSERT INTO ciudad (ciudad,departamento,postal)" +
+            boolean execute = connection.getQuerySQL().execute("INSERT INTO ciudad (id,ciudad,departamento,postal)" +
                     "values('" +
-                    ciudades.nombreCiudad+ "', '" +
-                    ciudades.Departamento + "', '" +
-                    ciudades.Postal + "')");
+                    ciudades.getId()+ "', '" +
+                    ciudades.getCiudad()+ "', '" +
+                    ciudades.getDepartamento() + "', '" +
+                    ciudades.getPostal() + "')");
             connection.connectionDB().close();
-            return "La ciudad " + ciudades.nombreCiudad + " fue registrada correctamente!!!";
+            return "La ciudad " + ciudades.getCiudad() + " fue registrada correctamente!!!";
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -40,11 +41,11 @@ public class Ciudades {
         try {
             connection.setQuerySQL(connection.connectionDB().createStatement());
             boolean execute = connection.getQuerySQL().execute("UPDATE ciudad SET " +
-                    "ciudad = '" + ciudades.nombreCiudad + "'," +
-                    "departamento = '" + ciudades.Departamento + "'," +
-                    "postal = '" + ciudades.Postal + "' " + " Where id = " + ciudades.Id);
+                    "ciudad = '" + ciudades.getCiudad() + "'," +
+                    "departamento = '" + ciudades.getDepartamento() + "'," +
+                    "postal = '" + ciudades.getPostal() + "' " + " Where id = " + ciudades.getId());
             connection.connectionDB().close();
-            return "Los datos de la ciudad " + ciudades.nombreCiudad + " fue modificado correctamente!!!";
+            return "Los datos de la ciudad " + ciudades.getCiudad() + " fue modificado correctamente!!!";
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -54,8 +55,9 @@ public class Ciudades {
                 CiudadesModels ciudades = new CiudadesModels();
         try {
             connection.setQuerySQL(connection.connectionDB().createStatement());
-            connection.setResultadoQuery(connection.getQuerySQL().executeQuery("Select * from ciudad where id = " + ciudades.Id));
+            connection.setResultadoQuery(connection.getQuerySQL().executeQuery("Select * from ciudad where id = " + id));
             if(connection.getResultadoQuery().next()){
+                ciudades.setId( connection.getResultadoQuery().getInt("id"));
                 ciudades.setCiudad( connection.getResultadoQuery().getString("ciudad"));
                 ciudades.setDepartamento(connection.getResultadoQuery().getString("departamento"));
                 ciudades.setPostal(connection.getResultadoQuery().getString("postal"));

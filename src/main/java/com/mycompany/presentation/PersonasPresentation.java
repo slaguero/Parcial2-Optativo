@@ -21,7 +21,7 @@ public class PersonasPresentation extends javax.swing.JFrame {
     public PersonasPresentation() {
         initComponents();
         this.setLocationRelativeTo(null);
-        personaService = new PersonasService("postgres", "12345", "localhost", "15432", "OptativoII");
+        personaService = new PersonasService("postgres", "1234", "localhost", "5432", "postgres");
     }
 
     private void ConsultarCliente(String filtrarPor, String filtro) {
@@ -38,36 +38,49 @@ public class PersonasPresentation extends javax.swing.JFrame {
     }
        private void nuevaPersona() {
         PersonasModels model = new PersonasModels();
-        txtNombre.setText(model.Nombre);
-        txtApellido.setText(model.Apellido);
-        cbestado.setSelectedItem(model.TipoDocumento);
-        txtNroDocumento.setText(model.NroDocumento);
-        txtDireccion.setText(model.Direccion);
-        txtEmail.setText(model.Email);
-        txtCelular.setText(model.Celular);
-        
+        model.setId(Integer.parseInt(txtIdPersona.getText()));
+        model.setNombre(txtNombre.getText());
+        model.setApellido(txtApellido.getText());
+        model.setEstado(cbestado.getSelectedItem().toString());
+        model.setNroDocumento(txtNroDocumento.getText());
+        model.setDireccion(txtDireccion.getText());
+        model.setEmail(txtEmail.getText());
+        model.setCelular(txtCelular.getText());
+
+       
         String result = personaService.registrarPersona(model);
         JOptionPane.showMessageDialog(this, result);
 
         limpiarDatos();
     }
     private void limpiarDatos() {
+         txtIdPersona.setText("");
         txtNombre.setText("");
         txtApellido.setText("");
         txtNroDocumento.setText("");
         txtDireccion.setText("");
         txtEmail.setText("");
         txtCelular.setText("");
+        cbestado.setSelectedItem(null);
+        cbTipoDocumento1.setSelectedItem(null);
+        txtidCiudad.setText("");
+
 
     }
     private void cargarDatos(PersonasModels model){
-        txtNombre.setText(model.Nombre);
-        txtApellido.setText(model.Apellido);
-        cbestado.setSelectedItem(model.TipoDocumento);
-        txtNroDocumento.setText(model.NroDocumento);
-        txtDireccion.setText(model.Direccion);
-        txtEmail.setText(model.Email);
-        txtCelular.setText(model.Celular);
+        if (model!=null){
+            txtIdPersona.setText(String.valueOf(model.getId()));
+            txtNombre.setText(model.getNombre());
+            txtApellido.setText(model.getApellido());
+            cbestado.setSelectedItem(model.getTipoDocumento());
+            txtNroDocumento.setText(model.getNroDocumento());
+            txtDireccion.setText(model.getDireccion());
+            txtEmail.setText(model.getEmail());
+            txtCelular.setText(model.getCelular());
+        }else{
+           limpiarDatos();
+            JOptionPane.showMessageDialog(this, "No se encontró Persona con el id ingresado");
+        }
     }
     
     /**
@@ -115,6 +128,11 @@ public class PersonasPresentation extends javax.swing.JFrame {
 
         etiquetaPersona.setText("Id Persona");
 
+        txtIdPersona.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtIdPersonaActionPerformed(evt);
+            }
+        });
         txtIdPersona.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 txtIdPersonaKeyPressed(evt);
@@ -394,6 +412,7 @@ public class PersonasPresentation extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNroDocumentoKeyPressed
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+         limpiarDatos();
         txtNombre.setEnabled(true);
         txtApellido.setEnabled(true);
         cbTipoDocumento1.setEnabled(true);
@@ -405,6 +424,10 @@ public class PersonasPresentation extends javax.swing.JFrame {
         cbestado.setEnabled(true);
 
     }//GEN-LAST:event_btnNewActionPerformed
+
+    private void txtIdPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIdPersonaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtIdPersonaActionPerformed
 
     
     

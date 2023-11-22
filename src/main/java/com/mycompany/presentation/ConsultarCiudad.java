@@ -7,6 +7,8 @@ package com.mycompany.presentation;
 import com.mycompany.Infraestructure.Models.CiudadesModels;
 import com.mycompany.Services.CiudadesService;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import static javax.swing.UIManager.getInt;
 
 /**
  *
@@ -20,7 +22,7 @@ public class ConsultarCiudad extends javax.swing.JFrame {
     public ConsultarCiudad() {
         initComponents();
          this.setLocationRelativeTo(null);
-        ciudadesService = new CiudadesService("postgres", "1234", "localhost", "5432", "OptativoII");
+        ciudadesService = new CiudadesService("postgres", "1234", "localhost", "5432", "postgres");
     }
     private void ConsultarCiudad(String id) {
         cargarDatos(ciudadesService.consultarCiudad(Integer.parseInt(id)));
@@ -29,9 +31,14 @@ public class ConsultarCiudad extends javax.swing.JFrame {
     
     private void nuevaCiudad() {
         CiudadesModels model = new CiudadesModels();
-        txtNombreCiudad.setText(model.nombreCiudad);
+        model.setId(Integer.parseInt(txtIdCiudad.getText()));
+        model.setCiudad(txtNombreCiudad.getText());
+        model.setDepartamento(txtDepartamento.getText());
+        model.setPostal(txtPostal.getText());
+
+        /*txtNombreCiudad.setText(model.nombreCiudad);
         txtDepartamento.setText(model.Departamento);
-        txtPostal.setText(model.Postal);
+        txtPostal.setText(model.Postal);*/
         
         String result = ciudadesService.registrarCiudad(model);
         JOptionPane.showMessageDialog(this, result);
@@ -40,9 +47,14 @@ public class ConsultarCiudad extends javax.swing.JFrame {
     }
     
     private void cargarDatos(CiudadesModels model){
-        txtNombreCiudad.setText(model.nombreCiudad);
-        txtDepartamento.setText(model.Departamento);
-        txtPostal.setText(model.Postal);
+        if (model!=null){
+            txtNombreCiudad.setText(model.getCiudad());
+            txtDepartamento.setText(model.getDepartamento());
+            txtPostal.setText(model.getPostal());
+        }else{
+            limpiarDatos();
+            JOptionPane.showMessageDialog(this, "No se encontró Ciudad con el id ingresado");
+        }
     }
     
     private void limpiarDatos() {
@@ -73,11 +85,11 @@ public class ConsultarCiudad extends javax.swing.JFrame {
         txtNombreCiudad = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         Cancelar = new javax.swing.JButton();
-        Cancelar1 = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         tituloPrincipal1 = new javax.swing.JLabel();
         btnNew = new javax.swing.JButton();
+        Cancelar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -123,15 +135,6 @@ public class ConsultarCiudad extends javax.swing.JFrame {
             }
         });
 
-        Cancelar1.setBackground(new java.awt.Color(204, 51, 0));
-        Cancelar1.setForeground(new java.awt.Color(255, 255, 255));
-        Cancelar1.setText("Salir");
-        Cancelar1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Cancelar1ActionPerformed(evt);
-            }
-        });
-
         btnGuardar.setBackground(new java.awt.Color(0, 102, 0));
         btnGuardar.setForeground(new java.awt.Color(255, 255, 255));
         btnGuardar.setText("Guardar");
@@ -155,7 +158,7 @@ public class ConsultarCiudad extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(118, 118, 118)
-                .addComponent(tituloPrincipal1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                .addComponent(tituloPrincipal1, javax.swing.GroupLayout.DEFAULT_SIZE, 177, Short.MAX_VALUE)
                 .addGap(123, 123, 123))
         );
         jPanel1Layout.setVerticalGroup(
@@ -174,46 +177,58 @@ public class ConsultarCiudad extends javax.swing.JFrame {
             }
         });
 
+        Cancelar1.setBackground(new java.awt.Color(204, 51, 0));
+        Cancelar1.setForeground(new java.awt.Color(255, 255, 255));
+        Cancelar1.setText("Salir");
+        Cancelar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Cancelar1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel1)
-                    .addComponent(etiquetaCiudad))
-                .addGap(58, 58, 58)
+                .addGap(6, 6, 6)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtPostal)
-                        .addGap(27, 27, 27))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtDepartamento)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(btnNew)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnGuardar)
+                                .addGap(18, 18, 18)
+                                .addComponent(Cancelar)
+                                .addGap(18, 18, 18)
+                                .addComponent(Cancelar1)
+                                .addGap(38, 38, 38)))
                         .addContainerGap())
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtNombreCiudad)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(txtIdCiudad)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnModelBuscarCiudades)
-                        .addContainerGap())))
-            .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(btnNew)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnGuardar)
-                        .addGap(27, 27, 27)
-                        .addComponent(Cancelar)
-                        .addGap(36, 36, 36)
-                        .addComponent(Cancelar1)))
-                .addContainerGap())
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4)
+                            .addComponent(jLabel1)
+                            .addComponent(etiquetaCiudad))
+                        .addGap(58, 58, 58)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtPostal)
+                                .addGap(27, 27, 27))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtDepartamento)
+                                .addContainerGap())
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtNombreCiudad)
+                                .addContainerGap())
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtIdCiudad)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(btnModelBuscarCiudades)
+                                .addContainerGap())))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(25, 25, 25)
@@ -246,8 +261,8 @@ public class ConsultarCiudad extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnGuardar)
                     .addComponent(Cancelar)
-                    .addComponent(Cancelar1)
-                    .addComponent(btnNew))
+                    .addComponent(btnNew)
+                    .addComponent(Cancelar1))
                 .addGap(25, 25, 25))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
@@ -284,6 +299,7 @@ public class ConsultarCiudad extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnNewActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNewActionPerformed
+        limpiarDatos();
         txtIdCiudad.setEnabled(true);
         txtNombreCiudad.setEnabled(true);
         txtDepartamento.setEnabled(true);
@@ -345,13 +361,8 @@ public class ConsultarCiudad extends javax.swing.JFrame {
     private javax.swing.JTextField txtPostal;
     // End of variables declaration//GEN-END:variables
 
+
    
 
-    
-
-    
-
-
-
-
+   
 }
