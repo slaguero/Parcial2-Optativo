@@ -11,15 +11,11 @@ import java.sql.SQLException;
  * @author solua
  */
 public class Cuentas {
-
     private Connections connection;
-
     public Cuentas(String userBD, String passDB, String hostDB, String portDB, String dataBase){
         connection = new Connections(userBD, passDB, hostDB, portDB, dataBase);
     }
-
     public String registrarCuenta(CuentasModels cuentas){
-
         try {
             connection.setQuerySQL(connection.connectionDB().createStatement());
             boolean execute = connection.getQuerySQL().execute("INSERT INTO cuentas (id, idcliente, nrocuenta, fechaalta, tipocuenta, estado)" +
@@ -36,9 +32,7 @@ public class Cuentas {
             throw new RuntimeException(e);
         }
     }
-
     public String modificarCuenta(CuentasModels cuentas){
-
         try {
             connection.setQuerySQL(connection.connectionDB().createStatement());
             boolean execute = connection.getQuerySQL().execute("UPDATE cuentas SET " +
@@ -54,7 +48,6 @@ public class Cuentas {
             throw new RuntimeException(e);
         }
     }
-
     public CuentasModels consultarCuenta(int id){
         CuentasModels cuentas = new CuentasModels();
         try {
@@ -82,7 +75,6 @@ public class Cuentas {
         }
         return null;
     }
-
     public String eliminarCuenta(int id){
 
         try {

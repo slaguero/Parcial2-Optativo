@@ -32,6 +32,7 @@ public class Main {
         Cuentas cuentasConn = new Cuentas("postgres", "1234", "localhost", "5432", "OptativoII");
 
         System.out.println("CONECTADO");*/
+       //puede partir de aca o directamente del formulario
         //Menu abrir = new Menu();
         //abrir.setVisible (true);
     }

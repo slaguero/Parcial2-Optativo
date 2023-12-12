@@ -39,7 +39,7 @@ public class Menu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(153, 0, 153));
 
-        jPanel1.setBackground(new java.awt.Color(102, 0, 102));
+        jPanel1.setBackground(new java.awt.Color(204, 204, 255));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -54,9 +54,10 @@ public class Menu extends javax.swing.JFrame {
 
         jMenuBar1.setBackground(new java.awt.Color(204, 0, 204));
 
-        jMenu1.setBackground(new java.awt.Color(255, 51, 204));
+        jMenu1.setBackground(new java.awt.Color(204, 102, 255));
         jMenu1.setText("Menu");
 
+        jMenuItem4.setBackground(new java.awt.Color(102, 102, 255));
         jMenuItem4.setText("Clientes");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,6 +66,7 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem4);
 
+        jMenuItem3.setBackground(new java.awt.Color(153, 153, 255));
         jMenuItem3.setText("Ciudad");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,6 +75,7 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
+        jMenuItem2.setBackground(new java.awt.Color(153, 102, 255));
         jMenuItem2.setText("Cuentas");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,6 +84,7 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
+        jMenuItem1.setBackground(new java.awt.Color(153, 102, 255));
         jMenuItem1.setText("Personas");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -120,7 +124,7 @@ public class Menu extends javax.swing.JFrame {
 
     private void jMenuItem3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem3ActionPerformed
         // TODO add your handling code here:
-        new ConsultarCiudad().setVisible(true);
+        new CiudadPresentation().setVisible(true);
     }//GEN-LAST:event_jMenuItem3ActionPerformed
 
     private void jMenuItem2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem2ActionPerformed
