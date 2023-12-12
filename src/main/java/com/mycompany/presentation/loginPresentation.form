@@ -48,7 +48,6 @@
         </Property>
       </Properties>
       <AccessibilityProperties>
-        <Property name="AccessibleContext.accessibleName" type="java.lang.String" value="Login"/>
         <Property name="AccessibleContext.accessibleDescription" type="java.lang.String" value="Login"/>
       </AccessibilityProperties>
 

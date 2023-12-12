@@ -3,25 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.Infraestructure.DbManagment;
-
 import com.mycompany.Infraestructure.Conections.Connections;
 import com.mycompany.Infraestructure.Models.MovimientosModels;
 import java.sql.SQLException;
+
 /**
  *
  * @author solua
  */
-public class Movimientos {
-    
 
+public class Movimientos {
     private Connections connection;
 
     public Movimientos (String userBD, String passDB, String hostDB, String portDB, String dataBase){
         connection = new Connections(userBD, passDB, hostDB, portDB, dataBase);
     }
-
     public String registrarMovimiento(MovimientosModels movimientos){
-
         try {
             connection.setQuerySQL(connection.connectionDB().createStatement());
             boolean execute = connection.getQuerySQL().execute("INSERT INTO movimientos (idcuenta, fechamovimiento, tipomovimiento, saldoanterior, saldoactual, montomovimiento, cuentaorigen, cuentadestino, canal)" +
@@ -43,7 +40,6 @@ public class Movimientos {
     }
 
     public String modificarMovimiento(MovimientosModels movimientos, int id){
-
         try {
             connection.setQuerySQL(connection.connectionDB().createStatement());
             boolean execute = connection.getQuerySQL().execute("UPDATE movimientos SET " +
@@ -62,7 +58,6 @@ public class Movimientos {
             throw new RuntimeException(e);
         }
     }
-
     public MovimientosModels consultarMovimiento(int id){
         MovimientosModels movimientos = new MovimientosModels();
         try {
@@ -71,8 +66,6 @@ public class Movimientos {
             if(connection.getResultadoQuery().next()){
                 movimientos.IdCuenta = connection.getResultadoQuery().getInt("idcuenta");
                 movimientos.MontoMovimiento = connection.getResultadoQuery().getInt("montomovimiento");
-
-
                 return movimientos;
             }
         } catch (SQLException e) {

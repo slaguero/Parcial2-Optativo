@@ -5,15 +5,12 @@
 package com.mycompany.Infraestructure.DbManagment;
 
 import com.mycompany.Infraestructure.Conections.Connections;
-import com.mycompany.Infraestructure.DbManagment.Personas;
 import com.mycompany.Infraestructure.Models.UsuariosModels;
-import com.mycompany.presentation.PersonasPresentation;
-
 import java.sql.SQLException;
 
 /**
  *
- * @author User
+ * @author solua
  */
 public class Autenticacion {
     private  Connections conexion;
@@ -71,9 +68,6 @@ public class Autenticacion {
                 usuario.setContraseña(conexion.getResultadoQuery().getString("contrasena"));    
                 usuario.setIDUsuario(conexion.getResultadoQuery().getInt("idusuario"));
                 usuario.setEstado(conexion.getResultadoQuery().getString("estado"));
-                
-/*                ciudad.Codigopostal = conexion.getResultadoQuery().getInt("codigo_postal"); Definido como numeric
-*/
                 return usuario;
             }
         } catch (SQLException e) {
@@ -82,7 +76,6 @@ public class Autenticacion {
         return null;
     }
       public String modificarPersona(UsuariosModels ciudad){
-
         try {
             conexion.setQuerySQL(conexion.connectionDB().createStatement());
             boolean execute = conexion.getQuerySQL().execute("UPDATE ciudades "

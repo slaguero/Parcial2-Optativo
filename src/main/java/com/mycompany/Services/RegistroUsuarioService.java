@@ -6,14 +6,12 @@ package com.mycompany.Services;
 
 import com.mycompany.Infraestructure.Models.PersonasModels;
 import com.mycompany.Infraestructure.Models.UsuariosModels;
-import com.mycompany.Services.PersonasService;
-import com.mycompany.Services.UsuariosService;
 import java.awt.event.KeyEvent;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author Toby
+ * @author solua
  */
 public class RegistroUsuarioService extends javax.swing.JFrame {
     private PersonasService personaService;

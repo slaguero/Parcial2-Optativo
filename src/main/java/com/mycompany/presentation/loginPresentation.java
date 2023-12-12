@@ -12,12 +12,9 @@ import javax.swing.JOptionPane;
  *
  * @author solua
  */
-public class loginPresentation extends javax.swing.JFrame {
 
+public class loginPresentation extends javax.swing.JFrame {
     private UsuariosService usuarioService;
-    /**
-     * Creates new form Login
-     */
     public loginPresentation() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -135,7 +132,6 @@ public class loginPresentation extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ingresaarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ingresaarActionPerformed
-        // TODO add your handling code here:
         UsuariosModels usuariomodelo = usuarioService.autenticar(user.getText());
 
         String pass = String.valueOf(password.getPassword());
@@ -150,7 +146,6 @@ public class loginPresentation extends javax.swing.JFrame {
     }//GEN-LAST:event_ingresaarActionPerformed
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
-        // TODO add your handling code here
         System.exit(0);
     }//GEN-LAST:event_salirActionPerformed
 
