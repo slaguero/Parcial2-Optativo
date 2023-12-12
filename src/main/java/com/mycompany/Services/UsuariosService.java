@@ -9,21 +9,24 @@ import com.mycompany.Infraestructure.Models.UsuariosModels;
 
 /**
  *
- * @author solua
+ * @author Toby
  */
-
-public class UsuariosService {  
+public class UsuariosService {
+        
     private Autenticacion  usuariosDB;
     public UsuariosService(String userBD, String passDB, String hostDB, String portDB, String dataBase){
         usuariosDB = new Autenticacion(userBD, passDB, hostDB, portDB, dataBase);
     }
+    
     public UsuariosModels autenticar(String usuario){
         return usuariosDB.Autenticar(usuario);
     }
+
     public void registrarUsuario(UsuariosModels usuario){
         usuariosDB.registrarUsuario(usuario);
     }
     public void actualizarUsuario(UsuariosModels usuario){
+        
         usuariosDB.modificarPersona(usuario);
     }
 }

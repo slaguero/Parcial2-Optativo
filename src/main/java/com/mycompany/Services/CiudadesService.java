@@ -10,7 +10,6 @@ import com.mycompany.Infraestructure.Models.CiudadesModels;
  *
  * @author solua
  */
-
 public class CiudadesService {
     
     Ciudades ciudadDB;

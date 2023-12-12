@@ -7,6 +7,7 @@ import com.mycompany.Infraestructure.Models.PersonasModels;
  * @author solua
  */
 public class PersonasService {
+
     Personas personasDB;
     public PersonasService(String userBD, String passDB, String hostDB, String portDB, String dataBase){
         personasDB = new Personas(userBD, passDB, hostDB, portDB, dataBase);
@@ -25,6 +26,7 @@ public class PersonasService {
         }
         return "Ocurrió algún error, contactese con el Administrador";
     }
+
 
     public PersonasModels consultarPersonaPorId(int id){
         return  personasDB.consultarPersona(id);

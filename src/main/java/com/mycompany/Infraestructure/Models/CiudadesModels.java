@@ -42,5 +42,8 @@ public class CiudadesModels {
 
     public void setPostal(String Postal) {
         this.Postal = Postal;
-    }  
+    }
+
+
+    
 }

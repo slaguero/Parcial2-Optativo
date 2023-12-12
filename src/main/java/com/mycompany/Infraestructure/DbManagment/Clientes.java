@@ -18,6 +18,7 @@ public class Clientes {
     }
 
     public String registrarCliente(ClientesModels clientes){
+
         try {
             connection.setQuerySQL(connection.connectionDB().createStatement());
             boolean execute = connection.getQuerySQL().execute("INSERT INTO cliente (id,idpersona, fechaingreso, calificacion, estado)" +
@@ -35,6 +36,7 @@ public class Clientes {
     }
 
     public String modificarCliente(ClientesModels clientes){
+
         try {
             connection.setQuerySQL(connection.connectionDB().createStatement());
             boolean execute = connection.getQuerySQL().execute("UPDATE cliente SET " +
@@ -70,6 +72,7 @@ public class Clientes {
     }
     
     public String eliminarCliente(int id){
+
         try {
             connection.setQuerySQL(connection.connectionDB().createStatement());
             boolean execute = connection.getQuerySQL().execute("DELETE FROM cliente" +

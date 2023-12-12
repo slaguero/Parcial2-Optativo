@@ -6,6 +6,7 @@ package com.mycompany.Infraestructure.DbManagment;
 
 import com.mycompany.Infraestructure.Conections.Connections;
 import com.mycompany.Infraestructure.Models.CiudadesModels;
+import com.mycompany.Infraestructure.Models.PersonasModels;
 import java.sql.SQLException;
 /**
  *

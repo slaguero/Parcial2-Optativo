@@ -12,7 +12,6 @@ import javax.swing.JOptionPane;
  *
  * @author solua
  */
-
 public class CuentasPresentation extends javax.swing.JFrame {
     CuentasService cuentaService;
     /**

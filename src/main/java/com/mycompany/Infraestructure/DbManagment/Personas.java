@@ -6,17 +6,19 @@ package com.mycompany.Infraestructure.DbManagment;
 import com.mycompany.Infraestructure.Conections.Connections;
 import com.mycompany.Infraestructure.Models.PersonasModels;
 import java.sql.SQLException;
-
 /*
  *
  * @author solua
  */
 
+
 public class Personas {
     private Connections connection;
+
     public Personas (String userBD, String passDB, String hostDB, String portDB, String dataBase){
         connection = new Connections(userBD, passDB, hostDB, portDB, dataBase);
     }
+
     public String registrarPersona(PersonasModels personas){
 
         try {
@@ -69,6 +71,7 @@ public class Personas {
                 personas.setApellido(connection.getResultadoQuery().getString("apellido"));
                 return personas;
             }
+            
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

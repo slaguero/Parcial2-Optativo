@@ -5,29 +5,32 @@
 package com.mycompany.Services;
 import com.mycompany.Infraestructure.DbManagment.Cuentas;
 import com.mycompany.Infraestructure.Models.CuentasModels;
-
 /**
  *
  * @author solua
  */
-
 public class CuentasService {
+    
     Cuentas cuentasDB;
     public CuentasService(String userBD, String passDB, String hostDB, String portDB, String dataBase){
         cuentasDB = new Cuentas(userBD, passDB, hostDB, portDB, dataBase);
     }
+
     public String registrarCuenta(CuentasModels cuentas){
         if(validarDatos(cuentas)){
            return cuentasDB.registrarCuenta(cuentas);
         }
         return "Ocurrió algún error, contactese con el Administrador";
     }
+
     public String modificarCuenta(CuentasModels cuentas){
         if(validarDatos(cuentas)){
             return cuentasDB.modificarCuenta(cuentas);
         }
         return "Ocurrió algún error, contactese con el Administrador";
     }
+
+
     public CuentasModels consultarCuenta(int id){
         return cuentasDB.consultarCuenta(id);
     }

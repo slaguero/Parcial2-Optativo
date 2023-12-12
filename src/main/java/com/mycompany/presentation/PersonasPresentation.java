@@ -12,8 +12,8 @@ import com.mycompany.Services.PersonasService;
  *
  * @author solua
  */
-
 public class PersonasPresentation extends javax.swing.JFrame {
+
     private PersonasService personaService;
     /**
      * Creates new form Personas
