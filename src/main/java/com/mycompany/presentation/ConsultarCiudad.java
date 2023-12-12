@@ -14,12 +14,12 @@ import static javax.swing.UIManager.getInt;
  *
  * @author solua
  */
-public class CiudadPresentation extends javax.swing.JFrame {
+public class ConsultarCiudad extends javax.swing.JFrame {
    private CiudadesService ciudadesService;
     /**
      * Creates new form Ciudad
      */
-    public CiudadPresentation() {
+    public ConsultarCiudad() {
         initComponents();
          this.setLocationRelativeTo(null);
         ciudadesService = new CiudadesService("postgres", "1234", "localhost", "5432", "postgres");
@@ -323,23 +323,21 @@ public class CiudadPresentation extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CiudadPresentation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultarCiudad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CiudadPresentation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultarCiudad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CiudadPresentation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultarCiudad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CiudadPresentation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ConsultarCiudad.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CiudadPresentation().setVisible(true);
+                new ConsultarCiudad().setVisible(true);
             }
         });
     }
