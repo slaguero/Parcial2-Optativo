@@ -54,9 +54,10 @@ public class Menu extends javax.swing.JFrame {
 
         jMenuBar1.setBackground(new java.awt.Color(204, 0, 204));
 
-        jMenu1.setBackground(new java.awt.Color(255, 51, 204));
+        jMenu1.setBackground(new java.awt.Color(204, 102, 255));
         jMenu1.setText("Menu");
 
+        jMenuItem4.setBackground(new java.awt.Color(102, 102, 255));
         jMenuItem4.setText("Clientes");
         jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -65,6 +66,7 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem4);
 
+        jMenuItem3.setBackground(new java.awt.Color(153, 153, 255));
         jMenuItem3.setText("Ciudad");
         jMenuItem3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -73,6 +75,7 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem3);
 
+        jMenuItem2.setBackground(new java.awt.Color(153, 102, 255));
         jMenuItem2.setText("Cuentas");
         jMenuItem2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,6 +84,7 @@ public class Menu extends javax.swing.JFrame {
         });
         jMenu1.add(jMenuItem2);
 
+        jMenuItem1.setBackground(new java.awt.Color(153, 102, 255));
         jMenuItem1.setText("Personas");
         jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
